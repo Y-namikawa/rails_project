@@ -9,14 +9,14 @@
     <div class="blog-detail">
       <p>
         <span><%= @blog.id %>:</span>
-        <span class="post-date">投稿日時:<%= @blog.created_at %></span>
+        <span class="post-date">投稿日時: <%= @blog.created_at.strftime('%Y/%m/%d %H:%M:%S') %></span>
         <span class="like">
           |
           <%= link_to "いいね", controller: "blog", action: "like", id: @blog %>
           :<%= @blog.like %>
         </span>
       </p>
-      <p><%= @blog.body %></p>
+      <p class="body"><%= @blog.body %></p>
     </div>
 
     <%= form_with(model: @new_reply, url: { action: "create_reply", id: @blog.id}, html: {id: 'new_reply', class: 'new_reply'}) do |r| %>
@@ -25,16 +25,24 @@
     <% end %>
     <hr>
 
+    <% if @comments.count != 0 %>
     <ol id="replies">
       <% @comments.reverse_each do |comment| %>
         <li class="reply">
     	    <p>
             <span class="comment"><%= comment.comment %></span>
             <span>|</span>
-            <sapn class="post-date">投稿日時: <%= comment.created_at %></sapn>
+            <sapn class="post-date">投稿日時: <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %></sapn>
           </p>
         </li>
       <% end %>
     </ol>
+    <% else %>
+      <div id="replies">
+        <div class="reply">
+          <p>コメントがありません</p>
+        </div>
+      </div>
+    <% end %>
   </body>
 </html>

@@ -5,6 +5,7 @@ class BlogController < ApplicationController
 		@blogs = Blog.all
 		@new_blog = Blog.new
 		@reply = Reply.group(:blog_id).count
+
 		render 'blog/index'
 	end
 
@@ -12,6 +13,7 @@ class BlogController < ApplicationController
 		@blog = Blog.find(params[:id])
 		@new_reply = Reply.new
 		@comments = Reply.where(blog_id: params[:id])
+
 		render 'blog/show'
 	end
 
@@ -19,14 +21,16 @@ class BlogController < ApplicationController
 		Blog.transaction do
 		  Blog.where(id: params[:id]).update_all('like = like + 1')
 		end
+
 		redirect_back fallback_location: 'blog/index'
 
 	end
 
 	def create_blog
 		Blog.transaction do
-			Blog.create(param_blog)
+			Blog.create(body: params[:blog][:body], like: 0)
 		end
+
 		redirect_back fallback_location: 'blog/index'
 	end
 
@@ -34,11 +38,7 @@ class BlogController < ApplicationController
 		Reply.transaction do
 			Reply.create(comment: params[:reply][:comment], blog_id: params[:id])
 		end
-	end
 
-	private
-
-	def param_blog
-		params.require(:blog).permit(:body, 0)
+		redirect_back fallback_location: 'blog/index'
 	end
 end
