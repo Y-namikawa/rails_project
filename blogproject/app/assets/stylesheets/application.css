@@ -1,15 +1,112 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td {
+ margin:0;
+ padding:0;
+ border:0;
+ outline:0;
+ font-size:100%;
+ vertical-align:baseline;
+ background:transparent
+}
+body {
+ line-height:1
+}
+ol,ul {
+ list-style:none
+}
+blockquote,q {
+ quotes:none
+}
+blockquote:before,blockquote:after,q:before,q:after {
+ content:'';
+ content:none
+}
+:focus {
+ outline:0
+}
+ins {
+ text-decoration:none
+}
+del {
+ text-decoration:line-through
+}
+table {
+ border-collapse:collapse;
+ border-spacing:0
+}
+body {
+ padding:16px
+}
+h1 {
+ line-height:2em;
+ font-size:2em
+}
+h2 {
+ line-height:2em;
+ font-size:1.2em
+}
+#blogs {
+ padding:16px
+}
+#blogs .blog:first-child {
+ padding-top:0
+}
+#blogs .blog {
+ padding:10px 0;
+ border-bottom:solid 1px #eee
+}
+#blogs .blog p {
+ line-height:1.5em
+}
+#blogs .blog .body {
+ font-weight:bold;
+ font-size:1em
+}
+#blogs .blog .like {
+ font-size:0.9em
+}
+#blogs .blog .comment {
+ font-size:0.9em
+}
+#blogs .blog .meta {
+ font-size:0.9em
+}
+#blogs .blog .post-date {
+ color:#999;
+ font-size:0.9em
+}
+.blog-detail {
+ border-top:solid 1px #eee;
+ margin-top:16px;
+ padding:16px
+}
+.blog-detail .post-date {
+ color:#999
+}
+.blog-detail .like {
+ padding:16px 0
+}
+.blog-detail .body {
+ padding:16px 0;
+ font-weight:bold
+}
+#replies {
+ padding:16px
+}
+#replies .reply:first-child {
+ padding-top:0
+}
+#replies .reply {
+ padding:10px 0;
+ border-bottom:solid 1px #eee
+}
+#replies .reply p {
+ line-height:1.5em
+}
+#replies .reply .comment {
+ font-weight:bold;
+ font-size:1em
+}
+#replies .reply .post-date {
+ color:#999;
+ font-size:0.9em
+}

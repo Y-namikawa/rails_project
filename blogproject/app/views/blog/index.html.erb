@@ -1,15 +1,38 @@
-<div id = "index">
-  <h1> Mini blog</h1>
-  <%= form_with model: @new_blog, url: { action: "create_blog" } do |b| %>
-    <%= b.text_field :body, :placeholder => "投稿しよう" %>
-    <%= b.submit "投稿する"%>
-  <% end %>
-  <% @blogs.reverse_each do |blog| %>
-    <div>
-    	<p><%= blog.id %>:<%= link_to blog.body, controller: "blog", action: "show", id: blog %></p>
-    	<p><%= link_to "いいね", controller: "blog", action: "like", id: blog %> : <%= blog.like %> | コメント数: <%= blog.replies.count %>|
-    	投稿日時:<%= blog.created_at %></p>
-    </div>
-  <% end %>
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+	<body id = "index">
+ 	  <h1> Mini blog</h1>
+ 	  <%= form_with(model: @new_blog, url: { action: "create_blog" }, html: {id: 'new_blog', class: 'new_blog'}) do |b| %>
+    	<%= b.text_field :body, :placeholder => "投稿しよう", id: 'blog-body', size: '80%' %>
+    	<%= b.submit "投稿する", name: 'commit' %>
+    <% end %>
+    <hr>
 
-</div>
+    <% if @blogs.count != 0 %>
+	    <ul id="blogs">
+	      <% @blogs.reverse_each do |blog| %>
+	        <li class="blog">
+	    	    <p>
+	    		    <span><%= blog.id %>:</span>
+	    		    <span class="body"><%= link_to blog.body, controller: "blog", action: "show", id: blog %></span>
+	    	    </p>
+	    	    <p class="meta">
+	    	      <span class="like">
+	    	        <%= link_to "いいね", controller: "blog", action: "like", id: blog %>: <%= blog.like %> |</span>
+   	    	    <span class="comment">コメント数: <%= blog.replies.count %> |</span>
+	      	    <span class="post-date">投稿日時: <%= blog.updated_at.strftime('%Y/%m/%d %H:%M:%S') %></span>
+	      	  </p>
+	        </li> 
+	      <% end %>
+		  </ul>
+		<% else %>
+      <div id="blogs">
+        <div class="blog">
+          <p>投稿がありません</p>
+        </div>
+      </div>
+		<% end %>
+  </body>
+<html>
