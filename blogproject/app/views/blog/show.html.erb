@@ -1,22 +1,48 @@
-<div id = "index">
-  <h1> Mini blog</h1>
-  <%= link_to "戻る", "/blog/index" %>
-  <div>
-    <div>
-      <p><%= @blog.id %> : 投稿日時:<%= @blog.created_at %> | <%= link_to "いいね", controller: "blog", action: "like", id: @blog %> :<%= @blog.like %></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link >
+  </head>
+  <body id = "index">
+    <h1> Mini blog</h1>
+    <p><%= link_to "戻る", "/blog/index" %></p>
+    <div class="blog-detail">
+      <p>
+        <span><%= @blog.id %>:</span>
+        <span class="post-date">投稿日時: <%= @blog.created_at.strftime('%Y/%m/%d %H:%M:%S') %></span>
+        <span class="like">
+          |
+          <%= link_to "いいね", controller: "blog", action: "like", id: @blog %>
+          :<%= @blog.like %>
+        </span>
+      </p>
+      <p class="body"><%= @blog.body %></p>
     </div>
-    <div>
-      <%= @blog.body %>
-    </div>
-    <%= form_with model: @new_reply, url: { action: "create_reply", id: @blog.id} do |r| %>
-      <%= r.text_field :comment, :placeholder => "コメントしよう" %>
-      <%= r.submit "コメントする" %>
-    <% end %>
-  </div>
-  <% @comments.reverse_each do |comment| %>
-    <div>
-    	<p><%= comment.comment %> | 投稿日時:<%= comment.created_at %></p>
-    </div>
-  <% end %>
 
-</div>
+    <%= form_with(model: @new_reply, url: { action: "create_reply", id: @blog.id}, html: {id: 'new_reply', class: 'new_reply'}) do |r| %>
+      <%= r.text_field :comment, :placeholder => "コメントしよう", id: 'reply_comment', size: '80%' %>
+      <%= r.submit "コメントする", name: 'commit' %>
+    <% end %>
+    <hr>
+
+    <% if @comments.count != 0 %>
+    <ol id="replies">
+      <% @comments.reverse_each do |comment| %>
+        <li class="reply">
+    	    <p>
+            <span class="comment"><%= comment.comment %></span>
+            <span>|</span>
+            <sapn class="post-date">投稿日時: <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %></sapn>
+          </p>
+        </li>
+      <% end %>
+    </ol>
+    <% else %>
+      <div id="replies">
+        <div class="reply">
+          <p>コメントがありません</p>
+        </div>
+      </div>
+    <% end %>
+  </body>
+</html>
