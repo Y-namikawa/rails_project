@@ -1,0 +1,15 @@
+<div id = "index">
+  <h1> Mini blog</h1>
+  <%= form_with model: @new_blog, url: { action: "create_blog" } do |b| %>
+    <%= b.text_field :body, :placeholder => "投稿しよう" %>
+    <%= b.submit "投稿する"%>
+  <% end %>
+  <% @blogs.reverse_each do |blog| %>
+    <div>
+    	<p><%= blog.id %>:<%= link_to blog.body, controller: "blog", action: "show", id: blog %></p>
+    	<p><%= link_to "いいね", controller: "blog", action: "like", id: blog %> : <%= blog.like %> | コメント数: <%= blog.replies.count %>|
+    	投稿日時:<%= blog.created_at %></p>
+    </div>
+  <% end %>
+
+</div>
